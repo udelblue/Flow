@@ -138,7 +138,7 @@
         
     $draggableOperators.draggable({
         cursor: "move",
-        opacity: 0.7,
+        opacity: 0.5,
         helper: function(e) {
           var $this = $(this);
           var data = getOperatorData($this);
@@ -213,6 +213,14 @@
   
 	});
 	
+	//clear workflow 
+	$( ".clear_data").click(function() {  
+		var $flowchart = $('#flowchart_area_1');
+		var data = "{}"
+		$flowchart.flowchart('setData', data);
+  
+	});
+	
 	
 
 	
@@ -239,10 +247,15 @@
   <div class="row workarea">
   <div class="col-md-6">
 	<div class="row">
+	
+	
+		<button type="button" class="btn btn-default btn-sm clear_data">
+		  <span class="glyphicon glyphicon-trash " aria-hidden="true"></span> Clear data
+		</button>
+	
 		<button type="button" class="btn btn-default btn-sm delete_selected_button">
 		  <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> Delete selected
 		</button>
-	
 	
 	
 		<button type="button" class="btn btn-default btn-sm get_data">
@@ -276,7 +289,7 @@
   <div class="col-md-6">
 	  <div class="draggable_operators_divs">
 		 
-		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="test" data-nb-outputs="1">Begin workflow</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="0" data-nb-outputs="1">Begin workflow</div>
 		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="1" data-nb-outputs="0">End workflow</div>
 		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item" data-nb-inputs="1" data-nb-outputs="1">Stage</div>
 		<!--  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="1" data-nb-outputs="2">1 in &amp; 2 out</div>
