@@ -444,7 +444,12 @@ $(function () {
                     }
                 }
             }
-
+			
+			if (typeof infos.type == 'undefined') {
+                infos.type = "";
+            }
+			
+			
             if (typeof infos.class == 'undefined') {
                 infos.class = this.options.defaultOperatorClass;
             }
@@ -461,7 +466,9 @@ $(function () {
             $operator_title.html(infos.title);
             $operator_title.appendTo($operator);
 
-			var $operator_config = $('<div> <center> ...........  </center> </div>');
+		
+		
+			var $operator_config = $('<div> <center> .....' + infos.type + '......  </center> </div>');
 			$operator_config.appendTo($operator);
 			
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');

@@ -111,11 +111,13 @@
     function getOperatorData($element) {
       var nbInputs = parseInt($element.data('nb-inputs'));
       var nbOutputs = parseInt($element.data('nb-outputs'));
+	  var nbType = $element.data('nb-type');
       var data = {
         properties: {
           title: $element.text(),
           inputs: {},
-          outputs: {}
+          outputs: {},
+		  type: nbType
         } 
       };
       
@@ -131,6 +133,8 @@
         };
       }
       
+	
+	  
       return data;
     }
     
@@ -289,9 +293,9 @@
   <div class="col-md-6">
 	  <div class="draggable_operators_divs">
 		 
-		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="0" data-nb-outputs="1">Begin workflow</div>
-		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="1" data-nb-outputs="0">End workflow</div>
-		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item" data-nb-inputs="1" data-nb-outputs="1">Stage</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="0" data-nb-outputs="1" data-nb-type="begin_workflow" >Begin workflow</div>
+		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="1" data-nb-outputs="0" data-nb-type="end_workflow" >End workflow</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stage" >Stage</div>
 		<!--  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="1" data-nb-outputs="2">1 in &amp; 2 out</div>
 		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="1">2 in &amp; 1 out</div>
 		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="2">2 in &amp; 2 out</div> -->
