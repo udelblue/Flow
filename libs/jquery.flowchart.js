@@ -468,7 +468,7 @@ $(function () {
 
 		
 		
-			var $operator_config = $('<div> <center> .....' + infos.type + '......  </center> </div>');
+			var $operator_config = $('<div> <center> .....'+ infos.type +'......  </center> </div>');
 			$operator_config.appendTo($operator);
 			
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');
