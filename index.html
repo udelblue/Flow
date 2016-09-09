@@ -1,0 +1,298 @@
+<html>
+  <head>
+ <title>Workflow builder</title>
+ 
+<script   src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/external/jquery/jquery.min.js" >  </script>
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.js"></script>
+<script type='text/javascript' src="./libs/jquery.flowchart.js"></script>
+<script type='text/javascript' src="./libs/jquery.panzoom.min.js"></script>
+<script type='text/javascript' src="./libs/jquery.mousewheel.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="./libs/jquery.flowchart.css">
+<link rel="stylesheet" type="text/css" href="./libs/custom.css">
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+
+<script>
+  $(document).ready(function() {
+    var $flowchart = $('#flowchart_area_1');
+    var $container = $flowchart.parent();
+    
+    var cx = $flowchart.width() / 2;
+    var cy = $flowchart.height() / 2;
+    
+    
+    // Panzoom initialization...
+    $flowchart.panzoom();
+    
+    // Centering panzoom
+    $flowchart.panzoom('pan', -cx + $container.width() / 2, -cy + $container.height() / 2);
+
+    // Panzoom zoom handling...
+    var possibleZooms = [0.5, 0.75, 1, 2, 3];
+    var currentZoom = 2;
+    $container.on('mousewheel.focal', function( e ) {
+        e.preventDefault();
+        var delta = (e.delta || e.originalEvent.wheelDelta) || e.originalEvent.detail;
+        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+        currentZoom = Math.max(0, Math.min(possibleZooms.length - 1, (currentZoom + (zoomOut * 2 - 1))));
+        $flowchart.flowchart('setPositionRatio', possibleZooms[currentZoom]);
+        $flowchart.panzoom('zoom', possibleZooms[currentZoom], {
+            animate: false,
+            focal: e
+        });
+    });
+    
+    var data = {
+      operators: {
+        operator1: {
+          top: cy - 100,
+          left: cx - 200,
+          properties: {
+            title: 'Begin workflow',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: cy,
+          left: cx + 140,
+          properties: {
+            title: 'End Workflow',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+            
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_1',
+        },
+      }
+    };
+    
+
+    // Apply the plugin on a standard, empty div...
+    $flowchart.flowchart({
+      data: data
+    });
+
+    $flowchart.parent().siblings('.delete_selected_button').click(function() {
+      $flowchart.flowchart('deleteSelected');
+    });
+    
+    
+    var $draggableOperators = $('.draggable_operator');
+    
+    function getOperatorData($element) {
+      var nbInputs = parseInt($element.data('nb-inputs'));
+      var nbOutputs = parseInt($element.data('nb-outputs'));
+      var data = {
+        properties: {
+          title: $element.text(),
+          inputs: {},
+          outputs: {}
+        } 
+      };
+      
+      var i = 0;
+      for (i = 0; i < nbInputs; i++) {
+        data.properties.inputs['input_' + i] = {
+          label: 'Input ' + (i + 1)
+        };
+      }
+      for (i = 0; i < nbOutputs; i++) {
+        data.properties.outputs['output_' + i] = {
+          label: 'Output ' + (i + 1)
+        };
+      }
+      
+      return data;
+    }
+    
+    var operatorId = 0;
+        
+    $draggableOperators.draggable({
+        cursor: "move",
+        opacity: 0.7,
+        helper: function(e) {
+          var $this = $(this);
+          var data = getOperatorData($this);
+          return $flowchart.flowchart('getOperatorElement', data);
+        },
+        stop: function(e, ui) {
+            var $this = $(this);
+            var elOffset = ui.offset;
+            var containerOffset = $container.offset();
+            if (elOffset.left > containerOffset.left &&
+                elOffset.top > containerOffset.top && 
+                elOffset.left < containerOffset.left + $container.width() &&
+                elOffset.top < containerOffset.top + $container.height()) {
+
+                var flowchartOffset = $flowchart.offset();
+
+                var relativeLeft = elOffset.left - flowchartOffset.left;
+                var relativeTop = elOffset.top - flowchartOffset.top;
+
+                var positionRatio = $flowchart.flowchart('getPositionRatio');
+                relativeLeft /= positionRatio;
+                relativeTop /= positionRatio;
+                
+                var data = getOperatorData($this);
+                data.left = relativeLeft;
+                data.top = relativeTop;
+                $flowchart.flowchart('createOperator', 'op_' + operatorId, data);
+                operatorId++;
+            }
+        }
+    });
+    
+    
+
+	
+	
+  });
+  </script>
+  
+  
+  <script>
+  $(document).ready(function() {
+  //recenter flowchart
+  $( ".flowchart-center").click(function() {  
+	var $flowchart = $('#flowchart_area_1');
+	    var $container = $flowchart.parent();
+	    var cx = $flowchart.width() / 2;
+    var cy = $flowchart.height() / 2;
+  $flowchart.panzoom('pan', -cx + $container.width() / 2, -cy + $container.height() / 2);
+	});
+	
+	  //delete workflow item
+	$( ".delete_selected_button").click(function() {  
+	var $flowchart = $('#flowchart_area_1');
+	$flowchart.flowchart('deleteSelected');
+  
+	});
+	
+	//get workflow 
+	$( ".get_data").click(function() { 
+		var $flowchart = $('#flowchart_area_1');	
+		var data = $flowchart.flowchart('getData');
+      $('#flowchart_data').val(JSON.stringify(data, null, 2));
+  
+	});
+	
+	//set workflow 
+	$( ".set_data").click(function() {  
+		var $flowchart = $('#flowchart_area_1');
+		var data = JSON.parse($('#flowchart_data').val());
+		$flowchart.flowchart('setData', data);
+  
+	});
+	
+	
+
+	
+	
+	
+	
+	
+    });
+  </script>
+  
+  
+  
+  
+  
+  </head>
+  
+  
+  <body>
+  <div class="container " style="border: 1px solid black;">
+  <div id="flowchart_area_1" style="width:100%;height:70vh"></div> 
+  
+  </div> 
+<div class="container">
+  <div class="row workarea">
+  <div class="col-md-6">
+	<div class="row">
+		<button type="button" class="btn btn-default btn-sm delete_selected_button">
+		  <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> Delete selected
+		</button>
+	
+	
+	
+		<button type="button" class="btn btn-default btn-sm get_data">
+		  <span class="glyphicon glyphicon-import " aria-hidden="true"></span> Get data
+		</button>
+			
+		<button type="button" class="btn btn-default btn-sm set_data">
+		  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Set data
+		</button>
+			
+	
+	
+	
+		<button type="button" class="btn btn-default btn-sm flowchart-center">
+		  <span class="glyphicon glyphicon-screenshot " aria-hidden="true"></span> Recenter
+		</button>
+		
+		
+
+		
+	  </div>
+	</br>
+	<div class="row">  
+		<div >
+		<textarea id="flowchart_data"  style="min-height: 20vh;width:100%;border:1px solid grey;" ></textarea>
+	  </div>
+	</div> 
+	  
+	  
+  </div>
+  <div class="col-md-6">
+	  <div class="draggable_operators_divs">
+		 
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="test" data-nb-outputs="1">Begin workflow</div>
+		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="1" data-nb-outputs="0">End workflow</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item" data-nb-inputs="1" data-nb-outputs="1">Stage</div>
+		<!--  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="1" data-nb-outputs="2">1 in &amp; 2 out</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="1">2 in &amp; 1 out</div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="2">2 in &amp; 2 out</div> -->
+	  </div>
+  
+  </div>
+  
+  </div>
+  
+
+  
+
+  
+  </div>
+  </body>
+  </html>
+  
