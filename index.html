@@ -8,12 +8,18 @@
 <script type='text/javascript' src="./libs/jquery.panzoom.min.js"></script>
 <script type='text/javascript' src="./libs/jquery.mousewheel.min.js"></script>
 
+<script type='text/javascript' src="./node_modules/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.js"></script>
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="./libs/jquery.flowchart.css">
+<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.css">
+
+
 <link rel="stylesheet" type="text/css" href="./libs/custom.css">
 
 
@@ -213,13 +219,7 @@
     
 
 	
-	
-  });
-  </script>
-  
-  
-  <script>
-  $(document).ready(function() {
+
   //recenter flowchart
   $( ".flowchart-center").click(function() {  
 	var $flowchart = $('#flowchart_area_1');
@@ -273,23 +273,45 @@
 		alert("test");
   
 	});
+
 	
+	$('.btn_create_operator').click(function() {
+		
+	  var otitle = $('#text_operator_title').val();
+	  var oinputs =$('#num_vertical1').val();
+	   var ooutputs =$('#num_vertical2').val();
+	   
+      var operatorId = generateUUID();
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: otitle ,
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+      
+     
+      var $flowchart = $('#flowchart_area_1');
+      $flowchart.flowchart('createOperator', operatorId, operatorData);
+    });
 	
-	
+
     });
   </script>
   
-  
-  
-  
-  
   </head>
-  
-  
+
   <body>
-
-  
-
 
   <div  class="container" style="border: 1px solid black;">
   <div  style="width:100%;height:70vh">
@@ -300,18 +322,22 @@
 <div class="container">
   <div class="row workarea">
   <div class="col-md-6">
+  
+  
+  
 	<div class="row">
 	
 	
-		<button type="button" class="btn btn-default btn-sm clear_data">
-		  <span class="glyphicon glyphicon-trash " aria-hidden="true"></span> Clear data
+	
+	
+		<button type="button" class="btn btn-default btn-sm btn_create_operator">
+		  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Clear data
 		</button>
 	
 		<button type="button" class="btn btn-default btn-sm delete_selected_button">
 		  <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> Delete selected
 		</button>
-	
-	
+
 		<button type="button" class="btn btn-default btn-sm get_data">
 		  <span class="glyphicon glyphicon-import " aria-hidden="true"></span> Get data
 		</button>
@@ -320,16 +346,12 @@
 		  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Set data
 		</button>
 			
-	
-	
-	
 		<button type="button" class="btn btn-default btn-sm flowchart-center">
 		  <span class="glyphicon glyphicon-screenshot " aria-hidden="true"></span> Recenter
 		</button>
 		
-		
+	
 
-		
 	  </div>
 	</br>
 	<div class="row">  
@@ -341,6 +363,7 @@
 	  
   </div>
   <div class="col-md-6">
+	<div class="row">
 	  <div class="draggable_operators_divs">
 		 
 		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item"  data-nb-inputs="0" data-nb-outputs="1" data-nb-type="begin_workflow" >Begin workflow</div>
@@ -350,8 +373,49 @@
 		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="1">2 in &amp; 1 out</div>
 		  <div class="draggable_operator ui-draggable ui-draggable-handle" data-nb-inputs="2" data-nb-outputs="2">2 in &amp; 2 out</div> -->
 	  </div>
+	</div>
+	<div class="row">
+	<p>Create Operator</p>
+	</div>
+	<div class="row">
+	  <div class="col-md-12"><textarea id="text_operator_title"   style="min-width: 100%" ></textarea>
+	  </div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-3">
+		<button type="button" class="btn btn-default btn-sm btn_create_operator">
+		  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Create Operator
+		</button>
+		</div>
+		
+		<div class="col-md-3">
+		<input id="num_vertical1" type="text" value="0" name="num_vertical1">
+		<script>
+			$("input[name='num_vertical1']").TouchSpin({
+			  verticalbuttons: true,
+			  verticalupclass: 'glyphicon glyphicon-plus',
+			  verticaldownclass: 'glyphicon glyphicon-minus'
+			});
+		</script>
+		</div>
+		
+		<div class="col-md-3">
+		<input id="num_vertical2" type="text" value="0" name="num_vertical2">
+		<script>
+			$("input[name='num_vertical2']").TouchSpin({
+			  verticalbuttons: true,
+			  verticalupclass: 'glyphicon glyphicon-plus',
+			  verticaldownclass: 'glyphicon glyphicon-minus'
+			});
+		</script>
+		</div>
+		
+		
+		
+	  
   
-  </div>
+	</div>
   
   </div>
   
