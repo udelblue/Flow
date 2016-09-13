@@ -26,6 +26,18 @@
 
 
 <script>
+
+	function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+	};
+
+
   $(document).ready(function() {
     var $flowchart = $('#flowchart_area_1');
     var $container = $flowchart.parent();
@@ -50,7 +62,7 @@
         currentZoom = Math.max(0, Math.min(possibleZooms.length - 1, (currentZoom + (zoomOut * 2 - 1))));
         $flowchart.flowchart('setPositionRatio', possibleZooms[currentZoom]);
         $flowchart.panzoom('zoom', possibleZooms[currentZoom], {
-            animate: false,
+            animate: true,
             focal: e
         });
     });
@@ -66,6 +78,9 @@
             outputs: {
               output_1: {
                 label: 'Start',
+              },
+			  output_2: {
+                label: 'test',
               }
             }
           }
@@ -98,7 +113,23 @@
 
     // Apply the plugin on a standard, empty div...
     $flowchart.flowchart({
-      data: data
+      data: data,
+	        onOperatorSelect: function(operatorId) {
+        console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
+        return true;
+      },
+      onOperatorUnselect: function() {
+        console.log('Operator unselected.');
+        return true;
+      },
+      onLinkSelect: function(linkId) {
+        console.log('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
+        return true;
+      },
+      onLinkUnselect: function() {
+        console.log('Link unselected.');
+        return true;
+      }
     });
 
     $flowchart.parent().siblings('.delete_selected_button').click(function() {
@@ -138,7 +169,7 @@
       return data;
     }
     
-    var operatorId = 0;
+    //var operatorId = 0;
         
     $draggableOperators.draggable({
         cursor: "move",
@@ -169,8 +200,12 @@
                 var data = getOperatorData($this);
                 data.left = relativeLeft;
                 data.top = relativeTop;
-                $flowchart.flowchart('createOperator', 'op_' + operatorId, data);
-                operatorId++;
+                //$flowchart.flowchart('createOperator', 'op_' + operatorId, data);
+				$flowchart.flowchart('createOperator', generateUUID() , data);
+               // operatorId++;
+				
+				
+				
             }
         }
     });
@@ -226,9 +261,18 @@
 	});
 	
 	
-
+	//test alert
+	$( ".alert").click(function() {  
+		alert("test");
+  
+	});
 	
 	
+	//test alert
+	$( ".alert").click(function() {  
+		alert("test");
+  
+	});
 	
 	
 	
@@ -243,9 +287,10 @@
   
   
   <body>
-  <div  class="container" style="border: 1px solid black;">
-  <div id="flowchart_area_1" style="width:100%;height:70vh"></div> 
-  
+  <div   class="container flowchart-container" style="border: 1px solid black;">
+	
+		<div id="flowchart_area_1" style="width:100%;height:70vh"></div> 
+
   </div> 
 <div class="container">
   <div class="row workarea">

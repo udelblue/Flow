@@ -238,6 +238,16 @@ $(function () {
             this.options.onAfterChange('link_create');
         },
 
+		_generateUUID: function(){
+		var d = new Date().getTime();
+		var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = (d + Math.random()*16)%16 | 0;
+			d = Math.floor(d/16);
+			return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+		});
+		return uuid;
+		},
+
         _autoCreateSubConnector: function (operator, connector, connectorType, subConnector) {
             var connectorInfos = this.data.operators[operator].properties[connectorType][connector];
             if (connectorInfos.multiple) {
@@ -467,8 +477,9 @@ $(function () {
             $operator_title.appendTo($operator);
 
 		
+			//<button type="button"  class="btn btn-default btn-xs alert">  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  </button>
 		
-			var $operator_config = $('<div> <center> .....'+ infos.type +'......  </center> </div>');
+			var $operator_config = $('<div> ...... </div>'); //........ 
 			$operator_config.appendTo($operator);
 			
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');
@@ -478,7 +489,7 @@ $(function () {
             var $operator_inputs = $('<div class="flowchart-operator-inputs"></div>');
             $operator_inputs.appendTo($operator_inputs_outputs);
 
-            var $operator_outputs = $('<div class="flowchart-operator-outputs"></div>');
+            var $operator_outputs = $('<div class="flowchart-operator-outputs"> </div>');
             $operator_outputs.appendTo($operator_inputs_outputs);
 
             var self = this;
@@ -507,6 +518,13 @@ $(function () {
                 connectors[connectorKey] = [];
                 connectorSets[connectorKey] = $operator_connector_set;
 
+				console.log("---");
+				console.log(connectorKey);
+				console.log("---");
+				console.log(connectorInfos);
+				console.log("+++");
+				console.log(fullElement);
+				
                 self._createSubConnector(connectorKey, connectorInfos, fullElement);
             }
 
@@ -526,6 +544,9 @@ $(function () {
         },
 
         _createSubConnector: function (connectorKey, connectorInfos, fullElement) {
+			
+			
+			
             var $operator_connector_set = fullElement.connectorSets[connectorKey];
 
             var subConnector = fullElement.connectors[connectorKey].length;
@@ -535,6 +556,10 @@ $(function () {
             $operator_connector.data('connector', connectorKey);
             $operator_connector.data('sub_connector', subConnector);
 
+			
+			//var $operator_connector_button = $('<div class="flowchart-operator-connector-label">test</div>');
+			//$operator_connector_button.appendTo($operator_connector);
+			
             var $operator_connector_label = $('<div class="flowchart-operator-connector-label"></div>');
             $operator_connector_label.text(connectorInfos.label.replace('(:i)', subConnector + 1));
             $operator_connector_label.appendTo($operator_connector);

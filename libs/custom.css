@@ -9,8 +9,16 @@
 .draggable-item{
 	margin-top: 3px;
 	cursor: crosshair;
-	border:1px solid grey;
-	
-	
-	
+	border:1px solid grey;	
+}
+
+
+
+
+
+
+
+#flowchart_area_1 {
+
+  background: white;
 }
