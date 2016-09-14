@@ -467,9 +467,10 @@ $(function () {
         },
 
         _getOperatorFullElement: function (operatorData) {
+		
             var infos = this.getOperatorCompleteData(operatorData);
 
-            var $operator = $('<div class="flowchart-operator"></div>');
+            var $operator = $('<div id="'+ operatorData.properties.opid +'" class="flowchart-operator"></div>');
             $operator.addClass(infos.class);
 
             var $operator_title = $('<div class="flowchart-operator-title"></div>');
@@ -518,12 +519,7 @@ $(function () {
                 connectors[connectorKey] = [];
                 connectorSets[connectorKey] = $operator_connector_set;
 
-				console.log("---");
-				console.log(connectorKey);
-				console.log("---");
-				console.log(connectorInfos);
-				console.log("+++");
-				console.log(fullElement);
+		
 				
                 self._createSubConnector(connectorKey, connectorInfos, fullElement);
             }
@@ -592,6 +588,7 @@ $(function () {
 
         createOperator: function (operatorId, operatorData) {
             operatorData.internal = {};
+			operatorData.properties.opid = operatorId;
             this._refreshInternalProperties(operatorData);
 
             var fullElement = this._getOperatorFullElement(operatorData);
