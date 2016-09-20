@@ -164,7 +164,6 @@ $(function () {
                 self.selectLink($(this).data('link_id'));
             });
 
-
         },
 
         setData: function (data) {
@@ -477,11 +476,9 @@ $(function () {
             $operator_title.html(infos.title);
             $operator_title.appendTo($operator);
 
-		
-			//<button type="button"  class="btn btn-default btn-xs alert">  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  </button>
-		
-			var $operator_config = $('<div> ...... </div>'); //........ 
-			$operator_config.appendTo($operator);
+
+			//var $operator_config = $('<div> ...... </div>'); //........ 
+			//$operator_config.appendTo($operator);
 			
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');
 
@@ -518,9 +515,6 @@ $(function () {
                 connectorSmallArrows[connectorKey] = [];
                 connectors[connectorKey] = [];
                 connectorSets[connectorKey] = $operator_connector_set;
-
-		
-				
                 self._createSubConnector(connectorKey, connectorInfos, fullElement);
             }
 
@@ -541,12 +535,8 @@ $(function () {
 
         _createSubConnector: function (connectorKey, connectorInfos, fullElement) {
 			
-			
-			
             var $operator_connector_set = fullElement.connectorSets[connectorKey];
-
             var subConnector = fullElement.connectors[connectorKey].length;
-
             var $operator_connector = $('<div class="flowchart-operator-connector"></div>');
             $operator_connector.appendTo($operator_connector_set);
             $operator_connector.data('connector', connectorKey);

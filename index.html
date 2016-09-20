@@ -72,9 +72,6 @@
             outputs: {
               output_1: {
                 label: 'Start',
-              },
-			  output_2: {
-                label: 'test',
               }
             }
           }
@@ -107,6 +104,7 @@
     $flowchart.flowchart({
       data: data,
 	        onOperatorSelect: function(operatorId) {
+			$('#text_operator_title').val(operatorId);
         console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
         return true;
       },
@@ -115,6 +113,8 @@
         return true;
       },
       onLinkSelect: function(linkId) {
+		$('#text_operator_title').val(linkId);
+	  
         console.log('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
         return true;
       },
@@ -155,8 +155,7 @@
           label: 'Output ' + (i + 1)
         };
       }
-      
-	
+
 	  
       return data;
     }
@@ -244,12 +243,7 @@
   
 	});
 	
-	
-	//test alert
-	$( ".alert").click(function() {  
-		alert("test");
-  
-	});
+
 
 	
 	$('.btn_create_operator').click(function() {
