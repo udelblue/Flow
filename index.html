@@ -147,12 +147,16 @@
       var i = 0;
       for (i = 0; i < nbInputs; i++) {
         data.properties.inputs['input_' + i] = {
-          label: 'Input ' + (i + 1)
+          id: generateUUID(),
+		  label: 'Input ' + (i + 1),
+		  meta: {}
         };
       }
       for (i = 0; i < nbOutputs; i++) {
         data.properties.outputs['output_' + i] = {
-          label: 'Output ' + (i + 1)
+			id: generateUUID(),
+          label: 'Output ' + (i + 1),
+		  meta: {}
         };
       }
 
