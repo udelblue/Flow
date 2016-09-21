@@ -763,11 +763,19 @@ $(function () {
         },
 
         colorizeLink: function (linkId, color) {
-            var linkData = this.data.links[linkId];
-            linkData.internal.els.path.setAttribute('stroke', color);
-            linkData.internal.els.rect.setAttribute('fill', color);
-            linkData.internal.els.fromSmallConnector.css('border-left-color', color);
-            linkData.internal.els.toSmallConnector.css('border-left-color', color);
+            
+			try {
+					var linkData = this.data.links[linkId];
+					linkData.internal.els.path.setAttribute('stroke', color);
+					linkData.internal.els.rect.setAttribute('fill', color);
+					linkData.internal.els.fromSmallConnector.css('border-left-color', color);
+					linkData.internal.els.toSmallConnector.css('border-left-color', color);
+			}
+			catch(err) {
+   
+			}
+            
+         
         },
 
         uncolorizeLink: function (linkId) {
