@@ -68,9 +68,12 @@
           left: cx - 200,
           properties: {
             title: 'Begin workflow',
+			type: 'workflow',
+			opid: 'bb96f06d-3cf5-47ec-8004-58f2decdea70',
             inputs: {},
             outputs: {
               output_1: {
+				id: 'a7d8af2e-a72d-486f-a378-bad37411e194',
                 label: 'Start',
               }
             }
@@ -105,17 +108,17 @@
       data: data,
 	        onOperatorSelect: function(operatorId) {
 			$('#flowchart_data').val(operatorId);
-        console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
+        //console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
         return true;
       },
       onOperatorUnselect: function() {
-        console.log('Operator unselected.');
+        //console.log('Operator unselected.');
         return true;
       },
       onLinkSelect: function(linkId) {
 		$('#flowchart_data').val(linkId);
 	  
-        console.log('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
+        //console.log('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
         return true;
       },
       onLinkUnselect: function() {
@@ -237,7 +240,6 @@
 		var $flowchart = $('#flowchart_area_1');
 		var data = {};
 		$flowchart.flowchart('setData', data);
-  
 	});
 	
 	
@@ -247,7 +249,16 @@
   
 	});
 	
-
+	
+	
+	//add left
+	$( ".btn_add_left").click(function() {  
+		var id = $(this)
+		
+		
+	})
+	
+	
 
 	
 	$('.btn_create_operator').click(function() {

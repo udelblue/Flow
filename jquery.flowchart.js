@@ -140,6 +140,12 @@ $(function () {
                     self.selectOperator($(this).data('operator_id'));
                 }
             });
+			
+			//
+			this.objs.layers.operators.on('click', '.btn_op_config', function (e) {
+				//console.log(self.getOperatorData($(e.target).closest('.flowchart-operator').attr('id')))
+            });
+			
 
             this.objs.layers.operators.on('click', '.flowchart-operator-connector', function () {
                 var $this = $(this);
@@ -476,10 +482,10 @@ $(function () {
             $operator_title.html(infos.title);
             $operator_title.appendTo($operator);
 
-
-			//var $operator_config = $('<div> ...... </div>'); //........ 
-			//$operator_config.appendTo($operator);
-			
+			//add label above connector area config
+			var $operator_inputs_outputs_header = $('<div class="flowchart-operator-inputs-outputs-header"><center><button type="button" class="btn btn-default btn-xs btn_op_config"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Config</button></center></div>');
+			$operator_inputs_outputs_header.appendTo($operator);
+	
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');
 
             $operator_inputs_outputs.appendTo($operator);
@@ -542,14 +548,20 @@ $(function () {
             $operator_connector.data('connector', connectorKey);
             $operator_connector.data('sub_connector', subConnector);
 
-			
-			//var $operator_connector_button = $('<div class="flowchart-operator-connector-label">test</div>');
+			//add label on link connector
+			//var $operator_connector_button = $('<div class="flowchart-operator-connector-header"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button></div>');
 			//$operator_connector_button.appendTo($operator_connector);
+			
+			
 			
             var $operator_connector_label = $('<div class="flowchart-operator-connector-label"></div>');
             $operator_connector_label.text(connectorInfos.label.replace('(:i)', subConnector + 1));
             $operator_connector_label.appendTo($operator_connector);
 
+			
+			
+			
+			
             var $operator_connector_arrow = $('<div class="flowchart-operator-connector-arrow"></div>');
 
             $operator_connector_arrow.appendTo($operator_connector);
