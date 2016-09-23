@@ -107,7 +107,7 @@
     $flowchart.flowchart({
       data: data,
 	        onOperatorSelect: function(operatorId) {
-			$('#flowchart_data').val(operatorId);
+			//$('#flowchart_data').val(operatorId);
         //console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
         return true;
       },
@@ -306,6 +306,22 @@
 
   </div> 
 <div class="container">
+
+<div id="flyout">
+<div id="flyout-container">
+<div class="row"><h5>Flow Types </h5></div>
+<div class="row">
+
+			<div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-2"  data-nb-inputs="0" data-nb-outputs="1" data-nb-type="begin_workflow" >Begin workflow</div>
+		   <div class="col-md-1"></div>
+		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-2"  data-nb-inputs="1" data-nb-outputs="0" data-nb-type="end_workflow" >End workflow</div>
+		   <div class="col-md-1"></div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-2" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stage" >Stage</div>
+		
+</div>
+</div>
+</div>
+
   <div class="row workarea">
   <div class="col-md-6">
   
@@ -404,6 +420,50 @@
   </div>
   
   </div>
+  
+  
+  <style>
+  
+  #flyout {
+    width: 350px;
+    height: 350px;
+    background-color: darkgray;
+}
+
+#flyout-container {
+	padding-left : 20px;
+	margin-right : 30px;
+	height: 100%;
+    background-color: lightgray;
+}
+
+
+ </style>
+  
+  
+  
+  <script>
+  $.fn.flyout = function(options) {
+    var el = this;
+    var edge = options.edge || 30;
+    el.css({
+        position : "absolute",
+        top : "30px",
+        left : -1 * (el.width() - edge)
+    });
+    el.click(function () {
+        $(this).animate({left : "0px"}); 
+    });
+    el.mouseleave(function () {
+        $(this).animate({left : -1 * (el.width() - edge) });
+    });
+}
+
+    $("#flyout").flyout({"edge" : "30"});
+  
+</script>  
+  
+  
   </body>
   </html>
   
