@@ -431,11 +431,10 @@
 }
 
 #flyout-container {
-	padding-left : 20px;
-	margin-right : 30px;
-	height: 100%;
     background-color: lightgray;
 }
+
+
 
 
  </style>
@@ -445,7 +444,14 @@
   <script>
   $.fn.flyout = function(options) {
     var el = this;
-    var edge = options.edge || 30;
+	var edge = options.edge || 30;
+	var elchild = el.find(">:first-child");
+	
+	elchild.css("height", "100%");
+	elchild.css("margin-right", edge);
+	elchild.css("padding-left", "20px");
+	
+	
     el.css({
         position : "absolute",
         top : "30px",
