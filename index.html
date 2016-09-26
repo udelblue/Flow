@@ -251,46 +251,9 @@
 	
 	
 	
-	//add left
-	$( ".btn_add_left").click(function() {  
-		var id = $(this)
-		
-		
-	})
 	
 	
 
-	
-	$('.btn_create_operator').click(function() {
-		
-	  var otitle = $('#text_operator_title').val();
-	  var oinputs =$('#num_vertical1').val();
-	  var ooutputs =$('#num_vertical2').val();
-	   
-      var operatorId = generateUUID();
-      var operatorData = {
-        top: 60,
-        left: 500,
-        properties: {
-          title: otitle ,
-          inputs: {
-            input_1: {
-              label: 'Input 1',
-            }
-          },
-          outputs: {
-            output_1: {
-              label: 'Output 1',
-            }
-          }
-        }
-      };
-      
-     
-      var $flowchart = $('#flowchart_area_1');
-      $flowchart.flowchart('createOperator', operatorId, operatorData);
-    });
-	
 
     });
   </script>
@@ -318,8 +281,20 @@
 		   <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-3"  data-nb-inputs="1" data-nb-outputs="0" data-nb-type="end_workflow" >End workflow</div>
 		   <div class="col-md-1"></div>
 		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-3" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stage" >Stage</div>
-		
+		  <div class="col-md-1"></div>
 </div>
+
+<div class="row">
+
+			<div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-3" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stageYellow" >Yellow Stage</div>
+		   <div class="col-md-1"></div>
+			<div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-3" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stageRed" >Red Stage</div>
+				  <div class="col-md-1"></div>
+		  <div class="draggable_operator ui-draggable ui-draggable-handle draggable-item col-md-3" data-nb-inputs="1" data-nb-outputs="1" data-nb-type="stageBlue" >Blue Stage</div>
+		  <div class="col-md-1"></div>
+</div>
+
+
 </div>
 </div>
 
@@ -359,7 +334,13 @@
 	  
   </div>
   <div class="col-md-6">
-
+		<div class="row"> 
+		  <div class="col-md-6">
+			<p id='flowchart-config-id'>----</p>
+		</div> 
+  
+		</div> 
+  
   
   </div>
   

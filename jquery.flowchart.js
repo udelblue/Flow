@@ -143,7 +143,14 @@ $(function () {
 			
 			//
 			this.objs.layers.operators.on('click', '.btn_op_config', function (e) {
-				//console.log(self.getOperatorData($(e.target).closest('.flowchart-operator').attr('id')))
+				//this.selectedOperatorIdConfig = self.getOperatorData($(e.target).closest('.flowchart-operator').attr('id'));
+				//$('.flowchart-config-id').val($(e.target).closest('.flowchart-operator').attr('id'));
+				//alert($(e.target).closest('.flowchart-operator').attr('id'));
+				var id = $(e.target).closest('.flowchart-operator').attr('id');
+				console.log(id)
+				
+				  document.getElementById("flowchart-config-id").innerHTML = id;
+				
             });
 			
 
@@ -763,6 +770,7 @@ $(function () {
         getSelectedOperatorId: function () {
             return this.selectedOperatorId;
         },
+	
 
         getSelectedLinkId: function () {
             return this.selectedLinkId;
