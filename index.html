@@ -110,8 +110,9 @@
 			//$('#flowchart_data').val(operatorId);
         //console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
 		
-		$('#flowchart-config-id-event').html(operatorId)
-		
+		$('#flowchart-config-id-event').html(operatorId);
+		var title = $flowchart.flowchart('getOperatorTitle',operatorId)
+		$('#flowchart-config-id-event-title').val(title);
 		
         return true;
       },
@@ -120,8 +121,8 @@
         return true;
       },
       onLinkSelect: function(linkId) {
-		$('#flowchart_data').val(linkId);
-	  
+		//$('#flowchart_data').val(linkId);
+		
         //console.log('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
         return true;
       },
@@ -253,6 +254,15 @@
   
 	});
 	
+	//save config
+	$( ".btn-flowchart-config-id-event-save-config").click(function() {  
+		var $id = $('#flowchart-config-id-event').html();
+		var $title = $('#flowchart-config-id-event-title').val();
+		
+		$flowchart.flowchart('setOperatorTitle', $id, $title);
+		
+		
+	});
 	
 	
 	
@@ -340,10 +350,21 @@
   <div class="col-md-6">
 		<div class="row"> 
 		  <div class="col-md-6">
-			<p id='flowchart-config-id'>----</p>
+		
 			<p id='flowchart-config-id-event'>----</p>
+			Title: <input id="flowchart-config-id-event-title"></input>
+			
+			
 		</div> 
-  
+	
+			
+		</div> 
+		
+		<div class="row"> 
+			<button type="button" class="btn btn-default btn-xs btn-flowchart-config-id-event-save-config">
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Save 
+			</button>
+				
 		</div> 
   
   
