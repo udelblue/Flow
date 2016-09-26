@@ -490,8 +490,8 @@ $(function () {
             $operator_title.appendTo($operator);
 
 			//add label above connector area config
-			var $operator_inputs_outputs_header = $('<div class="flowchart-operator-inputs-outputs-header"><center><button type="button" class="btn btn-default btn-xs btn_op_config"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Config</button></center></div>');
-			$operator_inputs_outputs_header.appendTo($operator);
+			//var $operator_inputs_outputs_header = $('<div class="flowchart-operator-inputs-outputs-header"><center><button type="button" class="btn btn-default btn-xs btn_op_config"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Config</button></center></div>');
+			//$operator_inputs_outputs_header.appendTo($operator);
 	
             var $operator_inputs_outputs = $('<div class="flowchart-operator-inputs-outputs"></div>');
 

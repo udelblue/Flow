@@ -109,6 +109,10 @@
 	        onOperatorSelect: function(operatorId) {
 			//$('#flowchart_data').val(operatorId);
         //console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
+		
+		$('#flowchart-config-id-event').html(operatorId)
+		
+		
         return true;
       },
       onOperatorUnselect: function() {
@@ -337,6 +341,7 @@
 		<div class="row"> 
 		  <div class="col-md-6">
 			<p id='flowchart-config-id'>----</p>
+			<p id='flowchart-config-id-event'>----</p>
 		</div> 
   
 		</div> 
