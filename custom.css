@@ -6,6 +6,7 @@
 }
 
 
+
 .draggable-item{
 	margin-top: 3px;
 	cursor: crosshair;
@@ -20,7 +21,18 @@
 
 
 
+#chart_container {
+
+  background: repeating-linear-gradient(
+      45deg,
+      #eee,
+      #eee 10px,
+      #e5e5e5 10px,
+      #e5e5e5 20px
+    );
+}
+
 #flowchart_area_1 {
 
-  background: white;
+  background:white;
 }
