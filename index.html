@@ -161,13 +161,20 @@
     function getOperatorData($element) {
       var nbInputs = parseInt($element.data('nb-inputs'));
       var nbOutputs = parseInt($element.data('nb-outputs'));
+	  var nbOutputsCanAdd = $element.data('nb-outputs-can-add');
+	  var nbInputsCanAdd = $element.data('nb-inputs-can-add');
+	  var nbAllowWait = $element.data('nb-allow-wait');
+	  var nbCategory = $element.data('nb-category ');
 	  var nbType = $element.data('nb-type');
       var data = {
         properties: {
           title: $element.text(),
+		  category: nbCategory ,
+		  type: nbType,
+		  properties: { 'outputs-can-add': nbOutputsCanAdd , 'inputs-can-add' : nbInputsCanAdd , 'allow-wait' : nbAllowWait },
           inputs: {},
-          outputs: {},
-		  type: nbType
+          outputs: {}
+		  
         } 
       };
       
