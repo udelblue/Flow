@@ -19,7 +19,15 @@
 	padding-top: 4px;
 }
 
+ #flyout {
+    width: 350px;
+    height: 350px;
+    background-color: darkgray;
+}
 
+#flyout-container {
+    background-color: lightgray;
+}
 
 #chart_container {
 
