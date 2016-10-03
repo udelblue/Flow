@@ -296,6 +296,13 @@
   </div> 
 <div class="container">
 
+
+<div id="flyoutright" class="flyout">
+<div id="flyout-container">
+</div>
+</div>
+
+
 <div id="flyout">
 
 <div id="flyout-container">
@@ -423,7 +430,7 @@
 
   
   <script>
-  $.fn.flyout = function(options) {
+  $.fn.flyoutleft = function(options) {
     var el = this;
 	var edge = options.edge || 30;
 	var elchild = el.find(">:first-child");
@@ -446,7 +453,34 @@
     });
 }
 
-    $("#flyout").flyout({"edge" : "30"});
+  $.fn.flyoutright = function(options) {
+    var el = this;
+	var edge = options.edge || 30;
+	var elchild = el.find(">:first-child");
+	
+	elchild.css("height", "100%");
+	elchild.css("margin-left", edge);
+	elchild.css("padding-right", "20px");
+	
+	
+    el.css({
+        position : "absolute",
+        top : "30px",
+        right : -1 * (el.width() - edge)
+    });
+    el.click(function () {
+        $(this).animate({right : "0px"}); 
+    });
+    el.mouseleave(function () {
+        $(this).animate({right : -1 * (el.width() - edge) });
+    });
+}
+
+
+    $("#flyout").flyoutleft({"edge" : "30"});
+    $("#flyoutright").flyoutright({"edge" : "30"});
+  
+  
   
 </script>  
   
