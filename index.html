@@ -283,21 +283,34 @@
 	//btn-add-input
 	$( ".btn-add-input").click(function() {  
 		var $id = $('#flowchart-config-id-event').html();
-		
 		var operatorData = $flowchart.flowchart('getOperatorData', $id);
-		
-		var putid = generateUUID;
-		
-		//operatorData.properties.inputs
-		
-		//var obj = JSON.parse(jsonStr);
-		operatorData['inputs'].push({putid : {id: putid, label:'input'}});
-//jsonStr = JSON.stringify(obj);
+		var putid = generateUUID();
+		if(!operatorData.properties.inputs)
+		{
+		operatorData.properties.inputs = {};
+		}
+		var inputs = operatorData.properties.inputs;
+
+		operatorData.properties.inputs[putid] = {id: putid, label:'hello'};
 		
 		$flowchart.flowchart('setOperatorData', $id , operatorData);
 	});
 	
-	
+		//btn-add-output
+	$( ".btn-add-output").click(function() {  
+		var $id = $('#flowchart-config-id-event').html();
+		var operatorData = $flowchart.flowchart('getOperatorData', $id);
+		var putid = generateUUID();
+		if(!operatorData.properties.outputs)
+		{
+		operatorData.properties.outputs = {};
+		}
+		var outputs = operatorData.properties.outputs;
+
+		operatorData.properties.outputs[putid] = {id: putid, label:'hello'};
+		
+		$flowchart.flowchart('setOperatorData', $id , operatorData);
+	});
 	
 	
 	
