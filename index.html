@@ -280,7 +280,29 @@
 		$flowchart.flowchart('setOperatorTitle', $id, $title);
 	});
 	
-
+	//btn-add-input
+	$( ".btn-add-input").click(function() {  
+		var $id = $('#flowchart-config-id-event').html();
+		
+		var operatorData = $flowchart.flowchart('getOperatorData', $id);
+		
+		var putid = generateUUID;
+		
+		//operatorData.properties.inputs
+		
+		//var obj = JSON.parse(jsonStr);
+		operatorData['inputs'].push({putid : {id: putid, label:'input'}});
+//jsonStr = JSON.stringify(obj);
+		
+		$flowchart.flowchart('setOperatorData', $id , operatorData);
+	});
+	
+	
+	
+	
+	
+	
+	
     });
   </script>
   
