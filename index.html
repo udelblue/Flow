@@ -111,11 +111,22 @@
 			//$('#flowchart_data').val(operatorId);
         //console.log('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
 		
+		$('#flowchart-config-id-event').html("");
+		$('#flowchart-config-id-event-title').val("");
+		$('#flowchart-config-id-event-JSON').val("");
+		
 		$('#flowchart-config-id-event').html(operatorId);
 		var title = $flowchart.flowchart('getOperatorTitle',operatorId);
 		$('#flowchart-config-id-event-title').val(title);
+		
+		
 		var oper = $flowchart.flowchart('getOperatorData',operatorId); 
 		//console.log(oper.properties);
+		
+		var jsonstring = JSON.stringify(oper);
+		$('#flowchart-config-id-event-JSON').val(jsonstring);
+		
+		
 		var  inputs = oper.properties.inputs;
 		var  outputs = oper.properties.outputs;
 		
@@ -415,6 +426,8 @@
 		
 			<p id='flowchart-config-id-event'>----</p>
 			Title: <input id="flowchart-config-id-event-title"></input>
+			</br>
+			JSON: <input id="flowchart-config-id-event-JSON"></input>
 			
 		</div> 
 			
